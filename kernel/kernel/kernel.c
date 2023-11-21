@@ -9,7 +9,7 @@
 #error "Not using i386 compiler" 
 #endif
 #include <kernel/tty.h>
-#include <kernel/gdt.h>
+#include <kernel/descriptor_tables.h>
 #include "../arch/i386/vga.h"
 size_t strlen(const char* str)
 
@@ -22,18 +22,6 @@ size_t strlen(const char* str)
 
 void kernel_main(void) {
 	terminal_initialize();
-
-	terminal_setcolor(vga_entry_color(VGA_COLOR_RED, VGA_COLOR_BLACK));
-	terminal_writestring("Hello, kernel world!\n");
-	terminal_setcolor(vga_entry_color(VGA_COLOR_GREEN, VGA_COLOR_BLACK));
-	terminal_writestring("Hello, kernel world!\n");
-	terminal_setcolor(vga_entry_color(VGA_COLOR_BLUE, VGA_COLOR_BLACK));
-	terminal_writestring("Hello, kernel world!\n");
-	terminal_setcolor(vga_entry_color(VGA_COLOR_CYAN, VGA_COLOR_BLACK));
-	terminal_writestring("Hello, kernel world!\n");
-	terminal_setcolor(vga_entry_color(VGA_COLOR_LIGHT_BROWN, VGA_COLOR_BLACK));
-	terminal_writestring("Hello, kernel world!\n");
-	terminal_setcolor(vga_entry_color(VGA_COLOR_MAGENTA, VGA_COLOR_BLACK));
-	terminal_writestring("Hello, kernel world!\n");
-
+	asm volatile ("int $0x3");
+	asm volatile ("int $0x4");
 }
